@@ -20,7 +20,7 @@ const HomePage = () => {
     const images = [image1, image2, image3, image4, image5, image6, image7, image8 , image9, image10];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen text-white">
       <Header />
       <div className='h-12'></div>
       {/* Hero Section with Scrolling Images */}

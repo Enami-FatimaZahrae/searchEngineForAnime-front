@@ -27,9 +27,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen  p-6">
       {/* Banner Section */}
-      <header className="relative">
+      <header className="relative bg-gray-100">
         <img
           src={welcomImage}
           alt="Anime Banner"
