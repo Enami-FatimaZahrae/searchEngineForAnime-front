@@ -115,7 +115,7 @@ const SearchBar = () => {
         Cancel
       </button>
       <button className="px-6 py-2 bg-yellow-500 text-gray-900 rounded hover:bg-yellow-400">
-        Apply Filters
+        Filter
       </button>
     </div>
   </div>

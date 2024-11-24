@@ -72,11 +72,7 @@ const LoginForm = () => {
 
 
     return (
-<<<<<<< HEAD
         // <div className="flex justify-center items-center min-h-screen bg-gray-900 px-4">
-=======
-        <div className="flex justify-center items-center min-h-screen px-4">
->>>>>>> 282dd9d9482b8e5967644cb24ce9160a9de5ca55
             <div className="bg-white rounded-lg shadow-lg flex overflow-hidden max-w-[600px] w-full">
                 {/* Image Section */}
                 <div className="flex-1 flex items-center justify-center bg-white">
