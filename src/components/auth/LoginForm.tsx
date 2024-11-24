@@ -3,7 +3,7 @@ import mascotImage from '../../assets/ChopperMascot1-Wbg.png';
 
 const LoginForm = () => {
     return (
-        <div className="flex justify-center items-center min-h-screen  px-4">
+        // <div className="flex justify-center items-center min-h-screen bg-gray-900 px-4">
             <div className="bg-white rounded-lg shadow-lg flex overflow-hidden max-w-[600px] w-full">
                 {/* Image Section */}
                 <div className="flex-1 flex items-center justify-center bg-white">
@@ -85,7 +85,7 @@ const LoginForm = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        // </div>
     );
 };
 
