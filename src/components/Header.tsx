@@ -1,17 +1,21 @@
 // src/components/Header.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import Login from '../components/auth/LoginForm'; // Importer le composant Login
+import SignUp from '../components/register/RegisterForm'; // Importer le composant SignUp
 
 const Header = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // État pour afficher le modal Login
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false); // État pour afficher le modal SignUp
+
   return (
     <header className="bg-gray-800 fixed w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-bold">AnimeSearch</h1>
+            <h1 className="text-xl font-bold text-white">AnimeSearch</h1>
           </div>
 
           {/* Navigation - Desktop */}
@@ -23,34 +27,50 @@ const Header = () => {
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
-             <Link to="/login">Login</Link>
-
+            {/* Login Button */}
+            <button
+              className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-white"
+              onClick={() => {
+                setIsLoginOpen(true);
+                setIsSignUpOpen(false); // Assurez-vous que le modal SignUp est fermé
+              }}
+            >
+              Login
             </button>
-            <button className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
-              <Link to="/register">Sign Up</Link>
+            {/* SignUp Button */}
+            <button
+              className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors text-white"
+              onClick={() => {
+                setIsSignUpOpen(true);
+                setIsLoginOpen(false); // Assurez-vous que le modal Login est fermé
+              }}
+            >
+              Sign Up
             </button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button className="p-2 rounded-lg hover:bg-gray-700">
+            <button className="p-2 rounded-lg hover:bg-gray-700 text-white">
               <Menu size={24} />
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation & Auth (Initially Hidden) */}
-        <div className="md:hidden hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 rounded-lg hover:bg-gray-700">Discover</a>
-            <a href="#" className="block px-3 py-2 rounded-lg hover:bg-gray-700">Categories</a>
-            <a href="#" className="block px-3 py-2 rounded-lg hover:bg-gray-700">Top Anime</a>
-            <a href="#" className="block px-3 py-2 rounded-lg hover:bg-gray-700">Login</a>
-            <a href="#" className="block px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700">Sign Up</a>
-          </div>
-        </div>
       </div>
+
+      {/* Modal Login */}
+      {isLoginOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <Login /> 
+        </div>
+      )}
+
+      {/* Modal SignUp */}
+      {isSignUpOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <SignUp />
+        </div>
+      )}
     </header>
   );
 };
