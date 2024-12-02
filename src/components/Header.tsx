@@ -9,6 +9,11 @@ const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false); // État pour afficher le modal Login
   const [isSignUpOpen, setIsSignUpOpen] = useState(false); // État pour afficher le modal SignUp
 
+  const closeAllModals = () => {
+    setIsLoginOpen(false);
+    setIsSignUpOpen(false);
+  };
+
   return (
     <header className="bg-gray-800 fixed w-full z-50">
       <div className="container mx-auto px-4">
@@ -32,7 +37,7 @@ const Header = () => {
               className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-white"
               onClick={() => {
                 setIsLoginOpen(true);
-                setIsSignUpOpen(false); // Assurez-vous que le modal SignUp est fermé
+                setIsSignUpOpen(false);
               }}
             >
               Login
@@ -60,16 +65,12 @@ const Header = () => {
 
       {/* Modal Login */}
       {isLoginOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <Login /> 
-        </div>
+            <Login setIsVisible={closeAllModals}/>
       )}
 
       {/* Modal SignUp */}
       {isSignUpOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <SignUp />
-        </div>
+            <SignUp setIsVisible={closeAllModals}/>
       )}
     </header>
   );

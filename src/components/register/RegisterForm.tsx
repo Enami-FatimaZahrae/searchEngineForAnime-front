@@ -1,11 +1,10 @@
+import { useState } from 'react';
 import { X, Mail, Lock, User } from 'lucide-react';
 import mascotImage from '../../assets/ChopperMascot2-Wbg.png';
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { authService } from '../../services/authService';
 
-const RegisterForm = () => {
-    const navigate = useNavigate();
+const RegisterForm = ({setIsVisible}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -14,12 +13,21 @@ const RegisterForm = () => {
     });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleRegister = async () => {
+        setError('');
+
+        if (!formData.name || !formData.email || !formData.password || !formData.repeatPassword) {
+            setError('All fields are required');
+            return;
+        }
+
         if (formData.password !== formData.repeatPassword) {
             setError('Passwords don\'t match');
             return;
         }
+
         const userData = {
             name: formData.name,
             email: formData.email,
@@ -39,31 +47,33 @@ const RegisterForm = () => {
         }
     };
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen px-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg flex overflow-hidden max-w-[600px] w-full">
                 {/* Image Section */}
                 <div className="flex-1 flex items-center justify-center bg-white">
                     <img
                         src={mascotImage}
                         alt="Chopper mascot"
-                        style={{ width: '80%', height: 'auto' }}
-                        className="object-cover"
+                        className="w-[80%] h-auto object-cover"
                     />
                 </div>
 
                 {/* Form Section */}
                 <div className="flex-1 p-6 flex flex-col justify-start">
                     <div className="relative flex justify-end">
-                        <button className="text-gray-400 hover:text-gray-600">
+                        <button
+                            onClick={() => setIsVisible(false)}
+                            className="text-gray-400 hover:text-gray-600"
+                        >
                             <X className="w-5 h-5" />
                         </button>
                     </div>
@@ -76,6 +86,11 @@ const RegisterForm = () => {
                             Create your account to start your anime journey!
                         </p>
                     </div>
+
+                    {/* Error Message */}
+                    {error && (
+                        <p className="text-red-500 text-xs text-center mt-2">{error}</p>
+                    )}
 
                     {/* Form Fields */}
                     <div className="space-y-3 mt-6">
