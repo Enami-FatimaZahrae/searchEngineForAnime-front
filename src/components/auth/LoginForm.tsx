@@ -4,6 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
 import mascotImage from '../../assets/ChopperMascot1-Wbg.png';
 import { userService } from "../../services/userService.ts";
+import {jwtDecode} from 'jwt-decode'
+
+interface DecodedToken {
+    sub: string; // Username or email
+    userId: number; // Custom claim
+}
 
 const LoginForm = ({setIsVisible}) => {
     const [email, setEmail] = useState('');
@@ -31,6 +37,10 @@ const LoginForm = ({setIsVisible}) => {
 
             if (response && response.token) {
                 localStorage.setItem('authToken', response.token);
+                const decoded: DecodedToken = jwtDecode(response.token);
+                localStorage.setItem('userSubject', decoded.sub);
+                localStorage.setItem('userId', decoded.userId.toString());
+
                 navigate("/home");
             } else {
                 setError('Réponse invalide de l\'API');
