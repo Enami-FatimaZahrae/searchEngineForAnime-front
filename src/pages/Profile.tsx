@@ -13,7 +13,6 @@ const Profile = () => {
     {
       id: 1,
       title: "Attack on Titan",
-      image: "https://via.placeholder.com/300x400?text=Attack+on+Titan",
       score: 9.0,
       description:
         "Humans face off against terrifying giants in a post-apocalyptic world.",
@@ -21,7 +20,6 @@ const Profile = () => {
     {
       id: 2,
       title: "Demon Slayer",
-      image: "https://via.placeholder.com/300x400?text=Demon+Slayer",
       score: 8.8,
       description:
         "A young boy becomes a demon slayer to avenge his family and save his sister.",
@@ -29,7 +27,6 @@ const Profile = () => {
     {
       id: 3,
       title: "My Hero Academia",
-      image: "https://via.placeholder.com/300x400?text=My+Hero+Academia",
       score: 8.5,
       description:
         "In a world of superpowers, a young boy aspires to become a hero.",
