@@ -20,8 +20,7 @@ const HomePage = () => {
     const images = [image1, image2, image3, image4, image5, image6, image7, image8 , image9, image10];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <Header />
+    <div className="min-h-screen text-white">
       <div className='h-12'></div>
       {/* Hero Section with Scrolling Images */}
       <div className="relative h-96 overflow-hidden">
@@ -72,7 +71,6 @@ const HomePage = () => {
         <TopAnimeSection />
       </div>
 
-      <Footer />
     </div>
   );
 };
