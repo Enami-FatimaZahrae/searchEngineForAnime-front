@@ -6,7 +6,7 @@ interface Anime {
   id: number;
   title: string;
   score: number;
-  description: string;
+  shortDescription: string;
 }
 
 interface SavedAnimesProps {
@@ -32,7 +32,7 @@ const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{anime.title}</h3>
             <p className="text-sm text-gray-400 mb-1">Score: {anime.score}</p>
-            <p className="text-sm text-gray-300">{anime.description}</p>
+            <p className="text-sm text-gray-300">{anime.shortDescription}</p>
           </li>
         ))}
       </ul>

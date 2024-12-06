@@ -10,6 +10,9 @@ const Profile = () => {
     bio: "Anime enthusiast and full-stack developer.",
   }); 
 
+  const [savedAnimes, setSavedAnimes] = useState([]); // Initialize as an empty array
+
+
   const userId = localStorage.getItem("userId");
   
   const parsedUserId = userId ? parseInt(userId, 10) : null;
@@ -35,29 +38,23 @@ const Profile = () => {
     fetchUserName();
   }, [parsedUserId]);
 
-  const [savedAnimes] = useState([
-    {
-      id: 1,
-      title: "Attack on Titan",
-      score: 9.0,
-      description:
-        "Humans face off against terrifying giants in a post-apocalyptic world.",
-    },
-    {
-      id: 2,
-      title: "Demon Slayer",
-      score: 8.8,
-      description:
-        "A young boy becomes a demon slayer to avenge his family and save his sister.",
-    },
-    {
-      id: 3,
-      title: "My Hero Academia",
-      score: 8.5,
-      description:
-        "In a world of superpowers, a young boy aspires to become a hero.",
-    },
-  ]);
+  useEffect(() => {
+    const fetchSavedAnimes = async () => {
+      if (parsedUserId === null) {
+        console.error("User ID is not available in localStorage.");
+        return;
+      }
+
+      try {
+        const animes = await userService.getAnimesByUserId(parsedUserId);
+        setSavedAnimes(animes); // Update the savedAnimes state with the fetched animes
+      } catch (err) {
+        console.error("Failed to fetch animes:", err);
+      }
+    };
+
+    fetchSavedAnimes();
+  }, [parsedUserId]);
 
 
 

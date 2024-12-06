@@ -73,8 +73,21 @@ export const userService = {
                 return "An unexpected error occurred";
             }
         }
-    }
+    },
     
-
+    getAnimesByUserId: async (userId: number) => {
+        try {
+            const response = await axiosInstance.get(`${API_URL}/${userId}/animes`);
+            return response.data; // Assuming the endpoint returns a list of anime DTOs
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                // Handle Axios-specific errors
+                return err.response?.data || "Failed to fetch animes";
+            } else {
+                return "An unexpected error occurred";
+            }
+        }
+    },
+    
 
 }
