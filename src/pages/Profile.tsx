@@ -1,13 +1,39 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import welcomImage from "../assets/ktyCLFc.gif";
 import SavedAnimes from "../components/SavedAnimes";
+import { userService } from "../services/userService";
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState({
-    username: "JohnDoe",
+    username: "",
     email: "johndoe@example.com",
     bio: "Anime enthusiast and full-stack developer.",
   }); 
+
+  const userId = localStorage.getItem("userId");
+  
+  const parsedUserId = userId ? parseInt(userId, 10) : null;
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (parsedUserId === null) {
+        console.error("User ID is not available in localStorage.");
+        return;
+      }
+
+      try {
+        const username = await userService.getNameById(parsedUserId);
+        setUserInfo((prevInfo) => ({
+          ...prevInfo,
+          username, // Update only the username in the userInfo state
+        }));
+      } catch (err) {
+        console.error("Failed to fetch username:", err);
+      }
+    };
+
+    fetchUserName();
+  }, [parsedUserId]);
 
   const [savedAnimes] = useState([
     {

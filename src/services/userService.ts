@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 
@@ -58,5 +59,22 @@ export const userService = {
                 return "Reset Password Failed"
             }
         }
+    },
+
+    getNameById: async (id: number) => {
+        try {
+            const response = await axiosInstance.get(`${API_URL}/get-name/${id}`);
+            return response.data; // Assuming the endpoint returns a string (user's name)
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                // Narrowing the error to AxiosError type
+                return err.response?.data || "Failed to fetch user name";
+            } else {
+                return "An unexpected error occurred";
+            }
+        }
     }
+    
+
+
 }
