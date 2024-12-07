@@ -75,19 +75,31 @@ export const userService = {
         }
     },
     
-    getAnimesByUserId: async (userId: number) => {
+    // getAnimesByUserId: async (userId: number) => {
+    //     try {
+    //         const response = await axiosInstance.get(`${API_URL}/${userId}/animes`);
+    //         return response.data; // Assuming the endpoint returns a list of anime DTOs
+    //     } catch (err) {
+    //         if (axios.isAxiosError(err)) {
+    //             // Handle Axios-specific errors
+    //             return err.response?.data || "Failed to fetch animes";
+    //         } else {
+    //             return "An unexpected error occurred";
+    //         }
+    //     }
+    // },
+
+    getPaginatedAnimes: async (userId: number, page: number = 0, size: number = 10) => {
         try {
-            const response = await axiosInstance.get(`${API_URL}/${userId}/animes`);
-            return response.data; // Assuming the endpoint returns a list of anime DTOs
+          const response = await axiosInstance.get(`/users/${userId}/animes`, {
+            params: { page, size },
+          });
+          return response.data;
         } catch (err) {
-            if (axios.isAxiosError(err)) {
-                // Handle Axios-specific errors
-                return err.response?.data || "Failed to fetch animes";
-            } else {
-                return "An unexpected error occurred";
-            }
+          console.error("Failed to fetch paginated animes:", err);
+          throw err;
         }
-    },
+      },
     
 
 }

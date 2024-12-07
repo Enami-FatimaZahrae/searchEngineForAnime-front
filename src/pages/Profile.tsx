@@ -11,6 +11,9 @@ const Profile = () => {
   }); 
 
   const [savedAnimes, setSavedAnimes] = useState([]); // Initialize as an empty array
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 10;
 
 
   const userId = localStorage.getItem("userId");
@@ -39,22 +42,24 @@ const Profile = () => {
   }, [parsedUserId]);
 
   useEffect(() => {
-    const fetchSavedAnimes = async () => {
-      if (parsedUserId === null) {
-        console.error("User ID is not available in localStorage.");
-        return;
-      }
+    const fetchAnimes = async () => {
+      if (parsedUserId === null) return;
 
       try {
-        const animes = await userService.getAnimesByUserId(parsedUserId);
-        setSavedAnimes(animes); // Update the savedAnimes state with the fetched animes
+        const response = await userService.getPaginatedAnimes(parsedUserId, currentPage, pageSize);
+        setSavedAnimes(response.content);
+        setTotalPages(response.totalPages);
       } catch (err) {
         console.error("Failed to fetch animes:", err);
       }
     };
 
-    fetchSavedAnimes();
-  }, [parsedUserId]);
+    fetchAnimes();
+  }, [parsedUserId, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
 
 
@@ -81,6 +86,47 @@ const Profile = () => {
 
       {/* Saved Files Section */}
       <SavedAnimes animes={savedAnimes} />
+
+      <div className="flex justify-center mt-8 space-x-2">
+        <button
+          onClick={() => currentPage > 0 && handlePageChange(currentPage - 1)}
+          className={`px-4 py-2 rounded-md border shadow-sm text-sm font-medium ${
+            currentPage > 0
+              ? "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+          }`}
+          disabled={currentPage === 0}
+        >
+          Previous
+        </button>
+
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index)}
+            className={`px-3 py-2 rounded-md text-sm font-medium shadow-sm transition-all ${
+              currentPage === index
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-700 border border-gray-300 hover:bg-blue-50"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => currentPage < totalPages - 1 && handlePageChange(currentPage + 1)}
+          className={`px-4 py-2 rounded-md border shadow-sm text-sm font-medium ${
+            currentPage < totalPages - 1
+              ? "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+          }`}
+          disabled={currentPage === totalPages - 1}
+        >
+          Next
+        </button>
+      </div>
+
      
     </div>
   );
