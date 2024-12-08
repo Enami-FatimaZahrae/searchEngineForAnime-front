@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import PdfViewer from "./PdfViewer";
+import { userService } from "../services/userService"; // Adjust the path as needed
 
 interface Anime {
   id: number;
@@ -13,13 +14,31 @@ interface Anime {
 
 interface SavedAnimesProps {
   animes: Anime[];
+  userId: number; // Assuming you have the userId available in props
+  onAnimeUnsave: (animeId: number) => void; // Callback to update the parent state
 }
 
-const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes }) => {
+const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes, userId, onAnimeUnsave }) => {
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [loadingAnimeId, setLoadingAnimeId] = useState<number | null>(null); // Track loading state per anime
 
   const handleViewPdf = (pdfUrl: string) => {
     setSelectedPdf(pdfUrl);
+  };
+
+
+  const handleUnsaveAnime = async (animeId: number) => {
+    setLoadingAnimeId(animeId); // Set loading state for the specific anime
+    try {
+      await userService.removeAnimeFromUser(userId, animeId);
+      onAnimeUnsave(animeId); // Notify parent to update the list
+      // alert("Anime removed successfully!"); // Optional feedback
+    } catch (error) {
+      console.error("Failed to remove anime:", error);
+      // alert("Failed to remove anime.");
+    } finally {
+      setLoadingAnimeId(null); // Clear loading state
+    }
   };
 
   return (
@@ -35,7 +54,10 @@ const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes }) => {
             <div className="absolute top-2 right-2 z-10 p-2 rounded-full">
               <FontAwesomeIcon
                 icon={faBookmark}
-                className="text-yellow-500 hover:text-gray-500 cursor-pointer"
+                className={`text-yellow-500 hover:text-gray-500 cursor-pointer ${
+                  loadingAnimeId === anime.id ? "animate-pulse" : ""
+                }`}
+                onClick={() => handleUnsaveAnime(anime.id)}
               />
             </div>
             <h3 className="text-lg font-semibold mb-2">{anime.title}</h3>

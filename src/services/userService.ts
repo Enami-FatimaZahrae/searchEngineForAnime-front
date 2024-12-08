@@ -101,5 +101,20 @@ export const userService = {
         }
       },
     
+      removeAnimeFromUser: async (userId: number, animeId: number) => {
+        try {
+            const response = await axiosInstance.delete(`/users/${userId}/animes/${animeId}`);
+            return response.data; // Assuming the backend sends a success message as a response
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                console.error("Failed to remove anime:", err.response?.data || err.message);
+                throw new Error(err.response?.data || "Failed to remove anime.");
+            } else {
+                console.error("An unexpected error occurred:", err);
+                throw new Error("An unexpected error occurred.");
+            }
+        }
+    },
+    
 
 }
