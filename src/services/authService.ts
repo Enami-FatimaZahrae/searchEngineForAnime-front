@@ -31,5 +31,18 @@ export const authService = {
         }catch(err) {
             throw err.response?.data || "Login failed";
         }
+    },
+    
+    validateToken: async (token: string) => {
+        try {
+            const response = await axios.get(`${API_URL}/validate-token`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data; // Returns the success message from the server
+        } catch (err: any) {
+            throw err.response?.data || "Token validation failed";
+        }
     }
 };

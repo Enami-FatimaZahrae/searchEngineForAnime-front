@@ -13,8 +13,8 @@ function App() {
 
   return (
     <div>
-    <Header />
     <BrowserRouter>
+      <Header />
       <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
@@ -23,8 +23,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
-    <Footer />
     </div>
   )
 }
