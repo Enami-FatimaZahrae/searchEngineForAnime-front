@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.tsx';
 import Profile from './pages/Profile.tsx';
 import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
+import PrivateRoute from './guards/PrivateRoute.tsx';
 
 function App() {
 
@@ -16,12 +17,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
           <Route path="/verify" element={<VerificationForm />} />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />;
       </Routes>
       <Footer />
     </BrowserRouter>
