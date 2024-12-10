@@ -8,13 +8,16 @@ import HomePage from './pages/HomePage.tsx';
 import Profile from './pages/Profile.tsx';
 import Header from './components/Header.tsx';
 import Footer from './components/Footer.tsx';
+import {SearchPage} from "./pages/SearchPage.tsx";
+
 
 function App() {
 
   return (
     <div>
-    <Header />
+
     <BrowserRouter>
+        <Header />
       <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
@@ -22,6 +25,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPasswordForm />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path='/search' element={<SearchPage/>} />
       </Routes>
     </BrowserRouter>
     <Footer />
