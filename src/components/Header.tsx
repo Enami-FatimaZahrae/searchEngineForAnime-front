@@ -1,13 +1,27 @@
-// src/components/Header.jsx
-import React, { useState } from 'react';
-import { Menu } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Login from '../components/auth/LoginForm'; // Importer le composant Login
-import SignUp from '../components/register/RegisterForm'; // Importer le composant SignUp
+import { useState, useEffect } from "react";
+import { Menu, User } from "lucide-react";
+import Login from "../components/auth/LoginForm"; // Import Login component
+import SignUp from "../components/register/RegisterForm"; // Import SignUp component
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false); // État pour afficher le modal Login
-  const [isSignUpOpen, setIsSignUpOpen] = useState(false); // État pour afficher le modal SignUp
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // State for Login modal
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false); // State for SignUp modal
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
+  const navigate = useNavigate();
+
+  // Check login status
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(!!token); // Update login state based on token presence
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove token
+    setIsLoggedIn(false); // Update login status
+    navigate("/");
+  };
 
   const closeAllModals = () => {
     setIsLoginOpen(false);
@@ -20,38 +34,57 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-white">AnimeSearch</h1>
+            <Link to={"/"}>
+            <h1 className="text-xl font-bold text-white cursor-pointer">AnimeSearch</h1>
+            </Link>
           </div>
 
           {/* Navigation - Desktop */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#discover"  className="hover:text-blue-400 transition-colors">Discover</a>
-            <a  href="#categories" className="hover:text-blue-400 transition-colors">Categories</a>
-            <a href="#top-anime" className="hover:text-blue-400 transition-colors">Top Anime</a>
-          </nav>
+          <nav className="hidden md:flex items-center space-x-8"></nav>
 
-          {/* Auth Buttons - Desktop */}
+          {/* Auth Buttons or Logout - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Login Button */}
-            <button
-              className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-white"
-              onClick={() => {
-                setIsLoginOpen(true);
-                setIsSignUpOpen(false);
-              }}
-            >
-              Login
-            </button>
-            {/* SignUp Button */}
-            <button
-              className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors text-white"
-              onClick={() => {
-                setIsSignUpOpen(true);
-                setIsLoginOpen(false); // Assurez-vous que le modal Login est fermé
-              }}
-            >
-              Sign Up
-            </button>
+          {isLoggedIn ? (
+              <>
+                {/* User Icon */}
+                <button
+                  className="p-2 rounded-lg hover:bg-gray-700 text-white"
+                  onClick={() => navigate("/profile")}
+                >
+                  <User size={24} />
+                </button>
+                {/* Logout Button */}
+                <button
+                  className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 transition-colors text-white"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                {/* Login Button */}
+                <button
+                  className="px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-white"
+                  onClick={() => {
+                    setIsLoginOpen(true);
+                    setIsSignUpOpen(false);
+                  }}
+                >
+                  Login
+                </button>
+                {/* SignUp Button */}
+                <button
+                  className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors text-white"
+                  onClick={() => {
+                    setIsSignUpOpen(true);
+                    setIsLoginOpen(false);
+                  }}
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -64,14 +97,10 @@ const Header = () => {
       </div>
 
       {/* Modal Login */}
-      {isLoginOpen && (
-            <Login setIsVisible={closeAllModals}/>
-      )}
+      {isLoginOpen && <Login setIsVisible={closeAllModals} />}
 
       {/* Modal SignUp */}
-      {isSignUpOpen && (
-            <SignUp setIsVisible={closeAllModals}/>
-      )}
+      {isSignUpOpen && <SignUp setIsVisible={closeAllModals} />}
     </header>
   );
 };

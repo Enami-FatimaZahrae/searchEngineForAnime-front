@@ -41,7 +41,7 @@ const LoginForm = ({setIsVisible}) => {
                 localStorage.setItem('userSubject', decoded.sub);
                 localStorage.setItem('userId', decoded.userId.toString());
 
-                navigate("/home");
+                window.location.href = "/"; // Redirect to login page or handle logout
             } else {
                 setError('Réponse invalide de l\'API');
             }
