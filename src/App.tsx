@@ -13,8 +13,9 @@ function App() {
 
   return (
     <div>
-    <Header />
+
     <BrowserRouter>
+	    <Header />
       <Routes>
 	      <Route path="/verify" element={<VerificationForm />} />
 	      <Route path="/reset-password" element={<ResetPasswordForm />} />
