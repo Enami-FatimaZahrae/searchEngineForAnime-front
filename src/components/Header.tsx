@@ -97,7 +97,7 @@ const Header = () => {
       </div>
 
       {/* Modal Login */}
-      {isLoginOpen && <Login setIsVisible={closeAllModals} />}
+      {isLoginOpen && <Login setIsVisible={closeAllModals}/>}
 
       {/* Modal SignUp */}
       {isSignUpOpen && <SignUp setIsVisible={closeAllModals} />}

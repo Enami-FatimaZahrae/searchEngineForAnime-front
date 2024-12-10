@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Mail, Lock, User } from 'lucide-react';
-import mascotImage from '../../assets/ChopperMascot2-Wbg.png';
+import mascotImage from '../../assets/pngwing.com.png';
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from '../../services/authService';
 
@@ -57,9 +57,9 @@ const RegisterForm = ({setIsVisible}) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg shadow-lg flex overflow-hidden max-w-[600px] w-full">
+            <div className="bg-gray-800 rounded-lg shadow-lg flex overflow-hidden max-w-[600px] w-full">
                 {/* Image Section */}
-                <div className="flex-1 flex items-center justify-center bg-white">
+                <div className="flex-1 flex items-center justify-center bg-gray-800">
                     <img
                         src={mascotImage}
                         alt="Chopper mascot"
