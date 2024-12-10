@@ -12,6 +12,7 @@ const SearchBar = () => {
 
     if(searchQuery !== ''){
       navigate(`/search?query=${searchQuery}`)
+      setSearchQuery(searchQuery)
     }
   };
 

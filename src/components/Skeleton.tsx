@@ -1,6 +1,8 @@
+interface SkeletonProps {
+	key?: number
+}
 
-
-export const Skeleton = () => {
+export const Skeleton = ({key}: SkeletonProps) => {
 	return (
 		<div role="status"
 		     className="max-w p-4  border border-gray-200 rounded-lg shadow animate-pulse md:p-6 dark:border-gray-700">

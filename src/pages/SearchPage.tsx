@@ -16,6 +16,7 @@ export const SearchPage = () => {
 	const [loading, setLoading] = useState(false)
 
 	const query = params.get('query')
+	const token = localStorage.getItem("authToken");
 
 	useEffect(() => {
 		setLoading(false)
@@ -41,31 +42,37 @@ export const SearchPage = () => {
 			</div>
 
 
-			<section className=" p-6 shadow-md my-8 z-0 rounded-b-lg">
+			<section className=" p-6  my-8 z-0 rounded-b-lg">
 
 				<ul className="space-y-4">
 
 
 
 
-					{!loading ? [0,1,2,3,4,5].map(()=>
-						<Skeleton  />
+					{!loading ? [0,1,2,3,4,5].map((key:number)=>
+						<Skeleton key={key} />
 					)
 					:
 
-					data.map((anime) => (
+					data.length > 0 ? data.map((anime) => (
 						<li
 							key={anime.id}
 							className="relative border border-gray-700 rounded-lg bg-gray-900 cursor-pointer shadow-lg p-4 hover:bg-gray-800 transition duration-300"
 						>
 							{/* Save Icon */}
-							<div className="absolute top-2 right-2 z-10 p-2 rounded-full">
-								<FontAwesomeIcon
-									icon={faBookmark}
-									className={`text-yellow-500 hover:text-gray-500 cursor-pointer 	`}
-									// onClick={() => handleUnsaveAnime(anime.id)}
-								/>
-							</div>
+							{
+								token &&
+
+                                <div className="absolute top-2 right-2 z-10 p-2 rounded-full">
+
+                                    <FontAwesomeIcon
+                                        icon={faBookmark}
+                                        className={`text-yellow-500 hover:text-gray-500 cursor-pointer 	`}
+										// onClick={() => handleUnsaveAnime(anime.id)}
+                                    />
+                                </div>
+							}
+
 							<h3 className="text-lg font-semibold mb-2">{anime.title}</h3>
 							<p className="text-sm text-gray-400 mb-1">Score: {anime.score}</p>
 							<p className="text-sm text-gray-300 mb-4 line-clamp-2">
@@ -79,6 +86,8 @@ export const SearchPage = () => {
 							</button>
 						</li>
 					))
+						:
+						<h1 >No result found</h1>
 					}
 				</ul>
 
