@@ -6,7 +6,8 @@ import error = Simulate.error;
 const API_URL = "http://localhost:8080/api/users";
 
 
-export const userService = {
+export const
+    userService = {
     verifyUser: async (email: string, verificationCode: string) => {
         try {
             const response = await axios.post(`${API_URL}/verify`, { email, verificationCode });
@@ -115,6 +116,22 @@ export const userService = {
             }
         }
     },
+
+
+        addAnimeToUser: async (userId: number, animeId: number) => {
+            try {
+                const response = await axiosInstance.post(`/users/${userId}/animes/${animeId}`);
+                return response.data; // Assuming the backend sends a success message as a response
+            } catch (err) {
+                if (axios.isAxiosError(err)) {
+                    console.error("Failed to remove anime:", err.response?.data || err.message);
+                    throw new Error(err.response?.data || "Failed to remove anime.");
+                } else {
+                    console.error("An unexpected error occurred:", err);
+                    throw new Error("An unexpected error occurred.");
+                }
+            }
+        },
     
 
 }

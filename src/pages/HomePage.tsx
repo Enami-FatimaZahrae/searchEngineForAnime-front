@@ -8,6 +8,8 @@ import image7 from "../assets/images/image7.jpg";
 import image8 from "../assets/images/image8.jpg";
 import image9 from "../assets/images/image9.jpg";
 import image10 from "../assets/images/image10.jpg";
+
+
 import DiscoverSection from '../components/DiscoverSection';
 import TopAnimeSection from '../components/TopAnimeSection';
 import CategoriesSection  from '../components/CategoriesSection';
@@ -19,10 +21,10 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen text-white">
-      <div className='h-12'></div>
+      <div className='h-16'></div>
       {/* Hero Section with Scrolling Images */}
-      <div className="relative h-96 overflow-hidden">
-        <div className="absolute inset-0 flex animate-infinite-scroll h-96 w-full">
+      <div className="relative h-[calc(100vh-64px)] overflow-hidden">
+        <div className="absolute inset-0 flex animate-infinite-scroll  h-full w-full">
           {images.map((image, index) => (
             <img
               key={index}
@@ -34,7 +36,7 @@ const HomePage = () => {
         </div>
 
         {/* Overlay on Images */}
-        <div className="absolute inset-0 bg-black bg-opacity-60">
+        <div className="absolute inset-0 bg-black bg-opacity-70">
           <div className="container mx-auto h-full flex flex-col justify-center items-center px-4">
             <h1 className="text-2xl font-bold text-center">
               Discover Your Next Anime
@@ -48,26 +50,26 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Discover Section */}
-      <div id="discover" className="container mx-auto py-16 px-4 ">
-        <h2 className="text-3xl font-semibold">Discover Your Next Anime</h2>
-        <p className="text-gray-400">Explore a selection of popular and recommended anime.</p>
-        <DiscoverSection />
-      </div>
+      {/*/!* Discover Section *!/*/}
+      {/*<div id="discover" className="container mx-auto py-16 px-4 ">*/}
+      {/*  <h2 className="text-3xl font-semibold">Discover Your Next Anime</h2>*/}
+      {/*  <p className="text-gray-400">Explore a selection of popular and recommended anime.</p>*/}
+      {/*  <DiscoverSection />*/}
+      {/*</div>*/}
 
-      {/* Categories Section */}
-      <div id="categories" className="container mx-auto py-16 px-4">
-        <h2 className="text-3xl font-semibold">Categories</h2>
-        <p className="text-gray-400">Browse through various anime categories.</p>
-        <CategoriesSection />
-      </div>
+      {/*/!* Categories Section *!/*/}
+      {/*<div id="categories" className="container mx-auto py-16 px-4">*/}
+      {/*  <h2 className="text-3xl font-semibold">Categories</h2>*/}
+      {/*  <p className="text-gray-400">Browse through various anime categories.</p>*/}
+      {/*  <CategoriesSection />*/}
+      {/*</div>*/}
 
-      {/* Top Anime Section */}
-      <div id="top-anime" className="container mx-auto py-16 px-4">
-        <h2 className="text-3xl font-semibold">Top Anime</h2>
-        <p className="text-gray-400">Check out the top-rated anime based on popularity and reviews.</p>
-        <TopAnimeSection />
-      </div>
+      {/*/!* Top Anime Section *!/*/}
+      {/*<div id="top-anime" className="container mx-auto py-16 px-4">*/}
+      {/*  <h2 className="text-3xl font-semibold">Top Anime</h2>*/}
+      {/*  <p className="text-gray-400">Check out the top-rated anime based on popularity and reviews.</p>*/}
+      {/*  <TopAnimeSection />*/}
+      {/*</div>*/}
 
     </div>
   );

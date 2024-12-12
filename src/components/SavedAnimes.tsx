@@ -42,13 +42,13 @@ const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes, userId, onAnimeUnsave
   };
 
   return (
-    <section className="bg-gray-800 p-6 shadow-md mb-8 z-0 rounded-b-lg">
+    <section className=" p-6 shadow-md mb-8 z-0 rounded-b-lg">
       <h2 className="text-2xl font-semibold mb-4">Saved Animes</h2>
       <ul className="space-y-4">
         {animes.map((anime) => (
           <li
             key={anime.id}
-            className="relative border border-gray-700 rounded-lg shadow-lg p-4 hover:bg-gray-700 transition duration-300"
+            className="relative border border-gray-700 rounded-lg bg-gray-900 cursor-pointer shadow-lg p-4 hover:bg-gray-800 transition duration-300"
           >
             {/* Save Icon */}
             <div className="absolute top-2 right-2 z-10 p-2 rounded-full">
@@ -62,7 +62,7 @@ const SavedAnimes: React.FC<SavedAnimesProps> = ({ animes, userId, onAnimeUnsave
             </div>
             <h3 className="text-lg font-semibold mb-2">{anime.title}</h3>
             <p className="text-sm text-gray-400 mb-1">Score: {anime.score}</p>
-            <p className="text-sm text-gray-300 mb-4">
+            <p className="text-sm text-gray-300 mb-4 line-clamp-2 ">
               {anime.shortDescription}
             </p>
             <button
