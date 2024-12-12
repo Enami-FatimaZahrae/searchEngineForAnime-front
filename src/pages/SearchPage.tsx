@@ -75,7 +75,7 @@ export const SearchPage = () => {
 			</div>
 			<div className={`px-10 text  my-9 text-red-600`} >
 				{
-					correct_query !== query &&
+					loading && correct_query !== query &&
                     <p className={'text-xl font-semibold'}>
                         did you mean:
                         <Link to={`/search?query=${correct_query}`}
@@ -90,7 +90,8 @@ export const SearchPage = () => {
 			<section className="px-6 mb-8 z-0 rounded-b-lg">
 				<ul className="space-y-4">
 					{!loading ? [0, 1, 2, 3, 4, 5].map((key: number) => <Skeleton key={key}/>) :
-						currentItems && currentItems.length > 0 ? currentItems.map((anime) => (
+
+						data && data.length > 0 ? currentItems.map((anime) => (
 								<li
 									key={anime.id}
 									className="relative border border-gray-700 rounded-lg bg-gray-900 cursor-pointer shadow-lg p-4 hover:bg-gray-800 transition duration-300"
@@ -119,6 +120,7 @@ export const SearchPage = () => {
 								</li>
 							)) :
 							<h1>No result found</h1>
+
 					}
 				</ul>
 				<div className="flex justify-center gap-2 mt-4">
