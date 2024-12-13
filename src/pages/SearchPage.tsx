@@ -75,7 +75,7 @@ export const SearchPage = () => {
 			</div>
 			<div className={`px-10 text  my-9 text-red-600`} >
 				{
-					loading && correct_query !== query &&
+					loading && correct_query !== query.toLowerCase() &&
                     <p className={'text-xl font-semibold'}>
                         did you mean:
                         <Link to={`/search?query=${correct_query}`}
